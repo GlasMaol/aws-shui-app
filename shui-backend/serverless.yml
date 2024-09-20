@@ -48,3 +48,17 @@ functions:
       - httpApi:
           path: /api/messages/{id}
           method: delete
+
+resources:
+  Resources:
+    EventsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: 'messages-db'
+        AttributeDefinitions:
+          - AttributeName: 'MessageID'
+            AttributeType: 'S'
+        KeySchema:
+          - AttributeName: 'MessageID'  
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
