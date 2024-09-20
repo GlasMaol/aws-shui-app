@@ -14,9 +14,37 @@ provider:
 
 
 functions:
-  handler:
+  GetMessages:
     handler: functions/GetMessages/index.handler
     events:
       - httpApi:
           path: /api/messages
           method: get
+
+  PostMessage:
+    handler: functions/PostMessage/index.handler
+    events:
+      - httpApi:
+          path: /api/messages
+          method: post
+
+  UpdateMessage:
+    handler: functions/UpdateMessage/index.handler
+    events:
+      - httpApi:
+          path: /api/messages/{id}
+          method: put
+
+  GetUserMessages:
+    handler: functions/GetUserMessages/index.handler
+    events:
+      - httpApi:
+          path: /api/messages/{userName}
+          method: get
+
+  DeleteMessage:
+    handler: functions/DeleteMessage/index.handler
+    events:
+      - httpApi:
+          path: /api/messages/{id}
+          method: delete
