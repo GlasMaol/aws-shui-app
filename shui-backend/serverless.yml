@@ -1,0 +1,22 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: alistairmccann
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: shui
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: shui-backend
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  iam:
+    role: arn:aws:iam::727646498491:role/lambdaDynamoDBAccess
+
+
+functions:
+  handler:
+    handler: functions/GetMessages/index.handler
+    events:
+      - httpApi:
+          path: /api/messages
+          method: get
