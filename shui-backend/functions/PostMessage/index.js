@@ -4,30 +4,25 @@ const { v4: uuid } = require('uuid');
 
 exports.handler = async (event) => {
     if (!event.body) {
-        return sendError(400, { message: 'No data sent.' })
+        return sendError(400, { message: 'No data sent.' });
     }
 
     const body = JSON.parse(event.body);
-    const message = body.message || body;
+    const { UserName, Text } = body.message || body;
 
-    if (!message.Text || !message.UserName) {
-        return sendError(400, { message: 'Missing Required Fields!' });
+    // Validate UserName
+    const usernameRegex = /^[a-zA-Z0-9]{4,10}$/;
+    if (!usernameRegex.test(UserName)) {
+        return sendError(400, { message: 'UserName must be between 4 and 10 characters and can only contain letters and numbers.' });
     }
 
-    const allowedFields = ['Text', 'UserName'];
-    const invalidFields = Object.keys(message).filter(field => !allowedFields.includes(field));
-
-    if (invalidFields.length > 0) {
-        return sendError(400, { message: `Invalid fields: ${invalidFields.join(', ')}` });
+    // Validate Text
+    if (Text.length < 1 || Text.length > 150) {
+        return sendError(400, { message: 'Text must be between 1 and 150 characters.' });
     }
 
     const messageID = uuid().substring(0, 5);
     const date = new Date();
-
-    const createdAtIsoString = "2024-09-20T13:33:49.887Z";
-
-    /*const date = new Date(createdAtIsoString);*/
-
     const formattedDate = date.toLocaleString('sv-SE', {
         weekday: 'long',
         day: 'numeric',
@@ -42,8 +37,8 @@ exports.handler = async (event) => {
             TableName: 'messages-db',
             Item: {
                 MessageID: messageID,
-                Text: message.Text,
-                UserName: message.UserName,
+                Text,
+                UserName,
                 CreatedAt: formattedDate
             }
         });
@@ -53,13 +48,13 @@ exports.handler = async (event) => {
             message: 'Message added successfully!',
             messageDetails: {
                 MessageID: messageID,
-                Text: message.Text,
-                UserName: message.UserName,
+                Text,
+                UserName,
                 CreatedAt: formattedDate
             }
         });
     } catch (error) {
         console.error('Error: ', error);
-        return sendError(500, { Message: 'An internal server error occurred.' })
+        return sendError(500, { Message: 'An internal server error occurred.' });
     }
-}
+};
