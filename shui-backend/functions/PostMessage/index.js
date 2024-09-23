@@ -61,6 +61,5 @@ exports.handler = async (event) => {
     } catch (error) {
         console.error('Error: ', error);
         return sendError(500, { Message: 'An internal server error occurred.' })
-
     }
 }
