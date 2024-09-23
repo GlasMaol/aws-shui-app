@@ -1,8 +1,13 @@
+const { sendResponse, sendError } = require('../../responses/index');
+const { db } = require('../../services/index');
+
 exports.handler = async (event) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: "Go Serverless v4! Your function executed successfully!",
-    }),
-  };
+  try {
+    const data = await db.scan({
+      TableName: 'messages-db'
+    })
+    return sendResponse(200, { data: data.Items })
+  } catch (error) {
+    return sendError(404, { message: error.message });
+  }
 };
