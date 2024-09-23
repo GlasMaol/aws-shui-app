@@ -1,0 +1,64 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: alistairmccann
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: shui
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: shui-backend
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: eu-north-1
+  iam:
+    role: arn:aws:iam::727646498491:role/lambdaDynamoDBAccess
+
+
+functions:
+  GetMessages:
+    handler: functions/GetMessages/index.handler
+    events:
+      - httpApi:
+          path: /api/messages
+          method: get
+
+  PostMessage:
+    handler: functions/PostMessage/index.handler
+    events:
+      - httpApi:
+          path: /api/messages
+          method: post
+
+  UpdateMessage:
+    handler: functions/UpdateMessage/index.handler
+    events:
+      - httpApi:
+          path: /api/messages/{id}
+          method: put
+
+  GetUserMessages:
+    handler: functions/GetUserMessages/index.handler
+    events:
+      - httpApi:
+          path: /api/messages/{userName}
+          method: get
+
+  DeleteMessage:
+    handler: functions/DeleteMessage/index.handler
+    events:
+      - httpApi:
+          path: /api/messages/{id}
+          method: delete
+
+resources:
+  Resources:
+    EventsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: 'messages-db'
+        AttributeDefinitions:
+          - AttributeName: 'MessageID'
+            AttributeType: 'S'
+        KeySchema:
+          - AttributeName: 'MessageID'  
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
