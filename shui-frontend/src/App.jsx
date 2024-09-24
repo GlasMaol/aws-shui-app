@@ -1,3 +1,4 @@
+import React from 'react';
 import DeleteMessage from "./pages/deleteMessagePage/DeleteMessage";
 import EditMessage from "./pages/editMessagePage/EditMessage";
 import Home from "./pages/homePage/Home";
@@ -9,8 +10,6 @@ import './app.css';
 function App() {
   return (
     <div className="app">
-      <header className="header">ShUi</header>
-      <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/post" element={<PostMessage />} />
@@ -18,8 +17,6 @@ function App() {
           <Route path="/delete" element={<DeleteMessage />} />
           <Route path="/user/:userName" element={<UserMessages />} />
         </Routes>
-      </main>
-      <footer className="footer"></footer>
     </div>
   );
 }
