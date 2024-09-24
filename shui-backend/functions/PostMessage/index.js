@@ -31,7 +31,7 @@ exports.handler = async (event) => {
         return sendError(400, { message: 'UserName must be between 4 and 10 characters and can only contain letters and numbers.' });
     }
 
-    if (Text.length < 1 || Text.length > 150) {
+    if (Text.length < 1 || Text.length > 500) {
         return sendError(400, { message: 'Text must be between 1 and 150 characters.' });
     }
 

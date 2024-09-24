@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Message from './Message'; // Import your Message component
+import '../../components/messageContainer/message.css';
 
 function MessagesList() {
     const [messages, setMessages] = useState([]);
@@ -10,40 +10,50 @@ function MessagesList() {
         const fetchMessages = async () => {
             try {
                 const response = await fetch('https://0y81swt2hg.execute-api.eu-north-1.amazonaws.com/api/messages');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
                 const data = await response.json();
-
                 if (data.success) {
-                    setMessages(data.messages);
+                    const sortedMessages = data.messages.sort((a, b) => {
+                        const dateA = new Date(extractDate(a.CreatedAt));
+                        const dateB = new Date(extractDate(b.CreatedAt));
+                        return dateB - dateA;
+                    });
+                    setMessages(sortedMessages);
                 } else {
                     setError(data.message);
                 }
-            } catch (err) {
-                setError('Failed to fetch messages');
+            } catch (error) {
+                setError(error.message);
             } finally {
-                setLoading(false);
+                setLoading(false); // avslutar try catch.
             }
         };
 
         fetchMessages();
     }, []);
 
+    const extractDate = (createdAt) => {
+        return createdAt.split(' - ')[0]; 
+    };
+
     if (loading) {
-        return <div>Loading messages...</div>;
+        return <div>Loading Messages...</div>;
     }
 
     if (error) {
-        return <div>{error}</div>;
+        return <div>Error: {error}</div>;
     }
 
     return (
-        <div className="messages-list">
+        <div>
             {messages.map((message) => (
-                <Message
-                    key={message.MessageID}
-                    createdAt={message.CreatedAt}
-                    text={message.Text}
-                    userName={message.UserName}
-                />
+                <div key={message.MessageID} className="message">
+                    <div className="timestamp">{message.CreatedAt}</div>
+                    <div className="text">{message.Text}</div>
+                    <div className="user-name">{message.UserName}</div>
+                </div>
             ))}
         </div>
     );

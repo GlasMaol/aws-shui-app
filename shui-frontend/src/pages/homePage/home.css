@@ -1,14 +1,31 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 .homeContainer {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
+    height: 100vh;
+}
+
+header {
+    background-color: #f8f8f8;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .mainContent {
     flex: 1;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
     background-image: url('../../assets/background-img.svg');
     background-size: cover;
     background-position: center;
@@ -16,7 +33,7 @@
     background-color: rgba(255, 255, 255, 0.5);
 }
 
-.footer {
+footer {
     font-size: 24px;
     font-weight: 800;
     padding: 15px;
@@ -25,4 +42,8 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: flex-end;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
 }
