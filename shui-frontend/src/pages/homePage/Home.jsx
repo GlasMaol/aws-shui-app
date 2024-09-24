@@ -2,6 +2,7 @@ import React from 'react'
 import FooterHome from '../../components/footerHome/FooterHome'
 import Header from '../../components/header/Header'
 import '../../pages/homePage/home.css'
+import MessagesList from '../../components/messageContainer/Message'
 
 function Home() {
 
@@ -10,9 +11,7 @@ function Home() {
     <div className='homeContainer'>
       <Header />
       <main className='mainContent'>
-        <h1>
-          Home page
-        </h1>
+        <MessagesList />
       </main>
       <FooterHome />
 
