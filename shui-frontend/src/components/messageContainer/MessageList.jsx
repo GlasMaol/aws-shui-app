@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../../components/messageContainer/message.css';
 
-function MessagesList() {
+function MessagesList({ onMessageClick }) {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -35,7 +35,7 @@ function MessagesList() {
     }, []);
 
     const extractDate = (createdAt) => {
-        return createdAt.split(' - ')[0]; 
+        return createdAt.split(' - ')[0];
     };
 
     if (loading) {
@@ -49,7 +49,12 @@ function MessagesList() {
     return (
         <div>
             {messages.map((message) => (
-                <div key={message.MessageID} className="message">
+                <div
+                    key={message.MessageID}
+                    className="message"
+                    onClick={() => onMessageClick(message)}
+                    style={{ cursor: 'pointer', margin: '10px 0', padding: '10px', border: '1px solid #ccc' }}
+                >
                     <div className="timestamp">{message.CreatedAt}</div>
                     <div className="text">{message.Text}</div>
                     <div className="user-name">{message.UserName}</div>
