@@ -1,8 +1,8 @@
-import DeleteMessage from "./pages/DeleteMessage"
-import EditMessage from "./pages/EditMessage"
-import Home from "./pages/Home"
-import PostMessage from "./pages/PostMessage"
-import UserMessages from "./pages/UserMessages"
+import DeleteMessage from "./pages/deleteMessagePage/DeleteMessage"
+import EditMessage from "./pages/editMessagePage/EditMessage"
+import Home from "./pages/homePage/Home"
+import PostMessage from "./pages/postMessagePage/PostMessage"
+import UserMessages from "./pages/userMessagePage/UserMessages"
 import { Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -12,7 +12,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/post" element={<PostMessage />} />
-          <Route path="/Edit" element={<EditMessage />} />
+          <Route path="/edit" element={<EditMessage />} />
           <Route path="/delete" element={<DeleteMessage />} />
           <Route path="/user/:userName" element={<UserMessages />} />
         </Routes>
