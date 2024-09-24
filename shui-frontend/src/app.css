@@ -23,15 +23,13 @@ body {
   min-width: 380px;
   max-width: 1200px;
   min-height: 100vh;
-  background: url('C:\Users\amcc_\OneDrive\Dokument\FrontEnd\VSCode\Examinationsuppgifter\aws-shui-app\shui-frontend\src\assets\background-img.svg') no-repeat center center;
-  background-size: cover;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border: 1px solid #ccc;
   display: flex;
   flex-direction: column;
 }
 
-.header {
+/*.header {
   color: var(--green);
   font-family: var(--font-headers);
   font-size: 30px;
@@ -40,9 +38,9 @@ body {
   min-height: 70px;
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+}*/
 
-.footer {
+/*.footer {
   color: var(--green);
   font-family: var(--font-headers);
   font-size: 24px;
@@ -57,4 +55,4 @@ body {
 .main-content {
   flex: 1; 
   padding: 20px;
-}
+}*/
