@@ -1,3 +1,4 @@
+import React from 'react';
 import DeleteMessage from "./pages/deleteMessagePage/DeleteMessage";
 import EditMessage from "./pages/editMessagePage/EditMessage";
 import Home from "./pages/homePage/Home";
