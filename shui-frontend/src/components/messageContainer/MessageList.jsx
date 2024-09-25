@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import '../../components/messageContainer/message.css';
 
 function MessagesList({ onMessageClick }) {
@@ -9,11 +10,9 @@ function MessagesList({ onMessageClick }) {
     useEffect(() => {
         const fetchMessages = async () => {
             try {
-                const response = await fetch('https://0y81swt2hg.execute-api.eu-north-1.amazonaws.com/api/messages');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
+                const response = await axios.get('https://0y81swt2hg.execute-api.eu-north-1.amazonaws.com/api/messages');
+                const data = response.data;
+
                 if (data.success) {
                     const sortedMessages = data.messages.sort((a, b) => {
                         const dateA = new Date(extractDate(a.CreatedAt));
@@ -25,9 +24,9 @@ function MessagesList({ onMessageClick }) {
                     setError(data.message);
                 }
             } catch (error) {
-                setError(error.message);
+                setError(error.response ? error.response.data.message : error.message);
             } finally {
-                setLoading(false); // avslutar try catch.
+                setLoading(false);
             }
         };
 
