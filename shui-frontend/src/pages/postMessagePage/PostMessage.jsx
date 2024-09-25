@@ -46,14 +46,14 @@ function PostMessage() {
         <section className='formSection'>
           <article className='messageContainer'>
             <form onSubmit={handleSubmit} className='messageForm'>
-              <input
-                type="text"
+              <textarea
                 placeholder="Enter message, max 500 characters...."
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 required
                 className='textInput'
-              />
+                rows="20"
+              ></textarea>
               <div className='inputContainer'>
                 <input
                   type="text"
