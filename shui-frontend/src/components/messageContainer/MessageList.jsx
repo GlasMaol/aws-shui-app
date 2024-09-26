@@ -51,12 +51,13 @@ function MessagesList({ onMessageClick }) {
                 <div
                     key={message.MessageID}
                     className="message"
-                    onClick={() => onMessageClick(message)}
-                    style={{ cursor: 'pointer', margin: '10px 0', padding: '10px', border: '1px solid #ccc' }}
+                    onClick={() => onMessageClick({ MessageID: message.MessageID, UserName: message.UserName })}
+                    style={{ cursor: 'pointer', margin: '25px 0', padding: '10px', border: '1px solid #ccc' }}
                 >
                     <div className="timestamp">{message.CreatedAt}</div>
                     <div className="text">{message.Text}</div>
                     <div className="user-name">{message.UserName}</div>
+                    <div className="triangle"></div>
                 </div>
             ))}
         </div>

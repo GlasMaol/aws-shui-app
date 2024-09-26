@@ -32,7 +32,6 @@ header {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: rgba(255, 255, 255, 0.5);
     position: relative;
 }
 
@@ -50,13 +49,3 @@ footer {
     width: 100%;
     z-index: 1000;
 }
-
-/*.navOverlay {
-    position: fixed;
-    top: 70px;
-    left: 50%;
-    max-width: 850px;
-    height: calc(100vh - 70px);
-    background-color: rgba(255, 255, 255, 0.9);
-    z-index: 900;
-}*/

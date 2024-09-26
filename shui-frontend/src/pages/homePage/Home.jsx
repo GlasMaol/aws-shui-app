@@ -7,11 +7,13 @@ import Nav from '../../components/nav/Nav';
 
 function Home() {
     const [isNavVisible, setIsNavVisible] = useState(false);
+    const [selectedMessage, setSelectedMessage] = useState({ MessageID: null, UserName: '' });
     const navRef = useRef();
 
-    const handleMessageClick = () => {
-        setIsNavVisible(true);
-    };
+    const handleMessageClick = (message) => {
+      setSelectedMessage(message);
+      setIsNavVisible(true);
+  };
 
     const handleClickOutside = (event) => {
         if (navRef.current && !navRef.current.contains(event.target)) {
@@ -37,8 +39,8 @@ function Home() {
             <main className='mainContent'>
                 <MessageList onMessageClick={handleMessageClick} />
                 {isNavVisible && (
-                    <div className="navOverlay" ref={navRef}>
-                        <Nav />
+                    <div ref={navRef}>
+                        <Nav MessageID={selectedMessage.MessageID} UserName={selectedMessage.UserName} />
                     </div>
                 )}
             </main>
@@ -48,44 +50,3 @@ function Home() {
 }
 
 export default Home;
-
-
-/*import React, { useState } from 'react'
-import FooterHome from '../../components/footerHome/FooterHome'
-import Header from '../../components/header/Header'
-import '../../pages/homePage/home.css'
-import MessagesList from '../../components/messageContainer/MessageList'
-import Nav from '../../components/nav/Nav'
-
-
-function Home() {
-  const [isNavVisible, setIsNavVisible] = useState(false);
-
-  const handleMessageClick = () => {
-    setIsNavVisible(true);
-  };
-
-  const handleBackdropClick = () => {
-    setIsNavVisible(false);
-  }
-
-  return (
-    <div className='homeContainer'>
-      <Header />
-      <main className='mainContent'>
-        <MessagesList onMessageClick={handleMessageClick} />
-        {isNavVisible && (
-          <>
-            <div className='backdrop' onClick={handleBackdropClick}></div>
-            <Nav />
-          </>
-        )}
-      </main>
-      <FooterHome />
-
-    </div>
-
-  )
-}
-
-export default Home*/

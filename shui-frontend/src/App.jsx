@@ -13,9 +13,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/post" element={<PostMessage />} />
-          <Route path="/edit" element={<EditMessage />} />
-          <Route path="/delete" element={<DeleteMessage />} />
-          <Route path="/user/:userName" element={<UserMessages />} />
+          <Route path="/edit/:MessageID" element={<EditMessage />} />
+          <Route path="/delete/:MessageID" element={<DeleteMessage />} />
+          <Route path="/user/:UserName" element={<UserMessages />} />
         </Routes>
     </div>
   );
