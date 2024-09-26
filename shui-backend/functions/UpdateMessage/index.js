@@ -12,19 +12,28 @@ exports.handler = async (event) => {
     try {
         message = JSON.parse(body).message || JSON.parse(body);
 
-        const { UserName, Text } = message;
 
-        const usernameRegex = /^[a-zA-Z0-9]{4,10}$/;
-        if (!usernameRegex.test(UserName)) {
-            return sendError(400, { message: 'UserName must be between 4 and 10 characters and can only contain letters and numbers.' });
-        }
-
-        if (Text.length < 1 || Text.length > 150) {
-            return sendError(400, { message: 'Text must be between 1 and 150 characters.' });
-        }
-
+        if (!message) {
+            return sendError(400, { message: "'message' field is required." });
     } catch (error) {
         return sendError(400, { message: 'Invalid JSON format.' });
+    }
+
+    const { UserName, Text } = message;
+
+    const allowedFields = ['UserName', 'Text'];
+    const invalidFields = Object.keys(message).filter(field => !allowedFields.includes(field));
+    if (invalidFields.length > 0) {
+        return sendError(400, { message: `Invalid field(s): ${invalidFields.join(', ')}` });
+    }
+
+    const usernameRegex = /^[a-zA-Z0-9]{4,10}$/;
+    if (!usernameRegex.test(UserName)) {
+        return sendError(400, { message: 'UserName must be between 4 and 10 characters and can only contain letters and numbers.' });
+    }
+
+    if (Text.length < 1 || Text.length > 150) {
+        return sendError(400, { message: 'Text must be between 1 and 150 characters.' });
     }
 
     const messageID = pathParameters.id;
@@ -40,22 +49,12 @@ exports.handler = async (event) => {
             return sendError(404, { message: 'Message not found, try again with correct id.' });
         }
 
-        const date = new Date();
-        const formattedDate = date.toLocaleString('sv-SE', {
-            weekday: 'long',
-            day: 'numeric',
-            month: 'short',
-            hour: '2-digit',
-            minute: '2-digit',
-            timeZone: 'Europe/Stockholm'
-        });
-
         const updatedMessage = {
             ...existingMessage,
             UserName,
             Text,
-            CreatedAt: existingMessage.CreatedAt,
-            Edited: `Edited at ${formattedDate}`
+
+            CreatedAt: `${existingMessage.CreatedAt} - edited`
         };
 
         await db.put({

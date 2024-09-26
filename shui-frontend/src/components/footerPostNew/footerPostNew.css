@@ -1,0 +1,15 @@
+.footerPostNew {
+    padding: 15px;
+    min-height: 70px;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    justify-content: center;
+}
+
+.footerH1 {
+    font-family: var(--font-headers);
+    color: var(--green);
+    font-size: 24px;
+    font-weight: 600;
+}
