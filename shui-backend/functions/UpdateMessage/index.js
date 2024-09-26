@@ -12,10 +12,9 @@ exports.handler = async (event) => {
     try {
         message = JSON.parse(body).message || JSON.parse(body);
 
+
         if (!message) {
             return sendError(400, { message: "'message' field is required." });
-        }
-
     } catch (error) {
         return sendError(400, { message: 'Invalid JSON format.' });
     }
@@ -54,6 +53,7 @@ exports.handler = async (event) => {
             ...existingMessage,
             UserName,
             Text,
+
             CreatedAt: `${existingMessage.CreatedAt} - edited`
         };
 

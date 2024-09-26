@@ -34,7 +34,6 @@ exports.handler = async (event) => {
     if (Text.length < 1 || Text.length > 500) {
         return sendError(400, { message: 'Text must be between 1 and 150 characters.' });
     }
-
     const messageID = uuid().substring(0, 5);
     const date = new Date();
     const formattedDate = date.toLocaleString('sv-SE', {
