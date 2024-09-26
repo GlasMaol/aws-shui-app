@@ -45,7 +45,9 @@ const UserMessagesList = () => {
         fetchUserMessages();
     }, [UserName]);
 
-    console.log('Current state:', { messages, loading, error });
+    const extractDate = (createdAt) => {
+        return createdAt.split(' - ')[0];
+    };
 
     if (loading) {
         return <div>Loading messages...</div>;
@@ -62,9 +64,8 @@ const UserMessagesList = () => {
                     <div
                         key={message.MessageID}
                         className="userMessages"
-                        style={{ margin: '25px 0', padding: '10px', border: '1px solid #ccc' }}
-                    >
-                        <div className="timestamp">{new Date(message.CreatedAt).toLocaleString()}</div>
+                        style={{ margin: '25px 0', padding: '10px', border: '1px solid #ccc' }}>
+                        <div className="timestamp">{message.CreatedAt}</div>
                         <div className="text">{message.Text}</div>
                         <div className="user-name">{message.UserName}</div>
                         <div className="triangle"></div>
