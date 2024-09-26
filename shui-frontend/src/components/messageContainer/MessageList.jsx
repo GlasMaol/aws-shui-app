@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import '../../components/messageContainer/message.css';
 
-function MessagesList() {
+function MessagesList({ onMessageClick }) {
     const [messages, setMessages] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -9,11 +10,9 @@ function MessagesList() {
     useEffect(() => {
         const fetchMessages = async () => {
             try {
-                const response = await fetch('https://0y81swt2hg.execute-api.eu-north-1.amazonaws.com/api/messages');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const data = await response.json();
+                const response = await axios.get('https://0y81swt2hg.execute-api.eu-north-1.amazonaws.com/api/messages');
+                const data = response.data;
+
                 if (data.success) {
                     const sortedMessages = data.messages.sort((a, b) => {
                         const dateA = new Date(extractDate(a.CreatedAt));
@@ -25,9 +24,9 @@ function MessagesList() {
                     setError(data.message);
                 }
             } catch (error) {
-                setError(error.message);
+                setError(error.response ? error.response.data.message : error.message);
             } finally {
-                setLoading(false); // avslutar try catch.
+                setLoading(false);
             }
         };
 
@@ -35,7 +34,7 @@ function MessagesList() {
     }, []);
 
     const extractDate = (createdAt) => {
-        return createdAt.split(' - ')[0]; 
+        return createdAt.split(' - ')[0];
     };
 
     if (loading) {
@@ -49,10 +48,16 @@ function MessagesList() {
     return (
         <div>
             {messages.map((message) => (
-                <div key={message.MessageID} className="message">
+                <div
+                    key={message.MessageID}
+                    className="message"
+                    onClick={() => onMessageClick({ MessageID: message.MessageID, UserName: message.UserName })}
+                    style={{ cursor: 'pointer', margin: '25px 0', padding: '10px', border: '1px solid #ccc' }}
+                >
                     <div className="timestamp">{message.CreatedAt}</div>
                     <div className="text">{message.Text}</div>
                     <div className="user-name">{message.UserName}</div>
+                    <div className="triangle"></div>
                 </div>
             ))}
         </div>

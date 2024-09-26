@@ -20,11 +20,20 @@ body {
 }
 
 .app {
+  width: 850px;
   min-width: 380px;
-  max-width: 850px;
+  max-width: 100vw;
   min-height: 100vh;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border: 1px solid #ccc;
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 850px) {
+  .app {
+    width: calc(100vw - 20px);
+    max-width: 850px;
+    min-width: 380px;
+  }
 }

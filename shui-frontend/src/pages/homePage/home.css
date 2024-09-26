@@ -8,6 +8,8 @@ html, body {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    max-width: 850px;
+    margin: 0 auto;
 }
 
 header {
@@ -30,7 +32,7 @@ header {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: rgba(255, 255, 255, 0.5);
+    position: relative;
 }
 
 footer {

@@ -21,6 +21,13 @@ functions:
           path: /api/messages
           method: get
 
+  GetSingleMessage:
+    handler: functions/GetSingleMessage/index.handler
+    events:
+      - httpApi:
+          path: /api/messages/message/{id}
+          method: get
+
   PostMessage:
     handler: functions/PostMessage/index.handler
     events:
