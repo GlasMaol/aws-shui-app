@@ -57,7 +57,7 @@ function PostMessage() {
               <div className='inputContainer'>
                 <input
                   type="text"
-                  placeholder="Enter name 5 to 10 characters....."
+                  placeholder="Enter name 5 to 10 chars....."
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
                   className='userInput'
