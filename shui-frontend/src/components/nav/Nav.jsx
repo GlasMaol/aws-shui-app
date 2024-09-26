@@ -6,7 +6,6 @@ import editImg from '../../assets/send-message-btn.svg';
 import './nav.css';
 
 export default function Nav({ MessageID, UserName }) {
-    // Log MessageID and UserName for debugging
     console.log('MessageID:', MessageID);
     console.log('UserName:', UserName);
 
